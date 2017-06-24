@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 
+#import "BAKit_ConfigurationDefine.h"
 #import "BAAlertController.h"
 
 /*!
@@ -158,11 +159,13 @@ static NSString * const msg2 = @"请输入账号密码";
 
 - (void)alertController1
 {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
     [UIAlertController ba_alertShowInViewController:self
                                               title:title0
                                             message:msg0
                                    buttonTitleArray:@[@"取 消", @"确 定"]
-                              buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red]
+                              buttonTitleColorArray:buttonTitleColorArray
                                               block:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
       NSString *msg = [NSString stringWithFormat:@"你点击了第 %ld 个按钮！", (long)buttonIndex];
       BAKit_ShowAlertWithMsg_ios8(msg);
@@ -171,11 +174,13 @@ static NSString * const msg2 = @"请输入账号密码";
 
 - (void)alertController2
 {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
     [UIAlertController ba_alertShowInViewController:self
                                               title:title0
                                             message:msg0
                                    buttonTitleArray:@[@"取 消", @"确 定", @"确 定1", @"确 定2"]
-                              buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red]
+                              buttonTitleColorArray:buttonTitleColorArray
                                               block:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                                                   NSString *msg = [NSString stringWithFormat:@"你点击了第 %ld 个按钮！", (long)buttonIndex];
                                                   BAKit_ShowAlertWithMsg_ios8(msg);
@@ -187,7 +192,9 @@ static NSString * const msg2 = @"请输入账号密码";
 {
     // AlertController 的 textField placeholder 数组，根据这个添加 textField
     NSArray *textFieldPlaceholderArray = @[@"用户名/手机号/邮箱", @"密码"];
-    [UIAlertController ba_alert2ShowInViewController:self title:msg2 message:nil  buttonTitleArray:@[@"取 消", @"确 定"] buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red] buttonEnabledNoWithTitleArray:@[@"确 定"] textFieldPlaceholderArray:textFieldPlaceholderArray textFieldConfigurationActionBlock:^(UITextField * _Nullable textField, NSInteger index) {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
+    [UIAlertController ba_alertTextFieldShowInViewController:self title:msg2 message:nil  buttonTitleArray:@[@"取 消", @"确 定"] buttonTitleColorArray:buttonTitleColorArray buttonEnabledNoWithTitleArray:@[@"确 定"] textFieldPlaceholderArray:textFieldPlaceholderArray textFieldConfigurationActionBlock:^(UITextField * _Nullable textField, NSInteger index) {
         // 添加通知，监听 textField 输入的文字变化
         [BAKit_NotiCenter addObserver:self selector:@selector(handleAlertTextFieldDidChangeAction:) name:UITextFieldTextDidChangeNotification object:textField];
 
@@ -241,11 +248,13 @@ static NSString * const msg2 = @"请输入账号密码";
     /*! 设置关键字属性 */
     [attributedMessage ba_changeAttributeDict:dic range:range];
     
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
     [UIAlertController ba_alertAttributedShowInViewController:self
                                               attributedTitle:attributedTitle
                                             attributedMessage:attributedMessage
                                              buttonTitleArray:@[@"取 消", @"确 定"]
-                                        buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red]
+                                        buttonTitleColorArray:buttonTitleColorArray
                                                         block:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                                                             
                                                             NSString *msg = [NSString stringWithFormat:@"你点击了第 %ld 个按钮！", (long)buttonIndex];
@@ -255,7 +264,8 @@ static NSString * const msg2 = @"请输入账号密码";
 
 - (void)alertController5
 {
-    [UIAlertController ba_actionSheetShowInViewController:self title:title0 message:nil buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:@[BAKit_Color_Red, BAKit_Color_Green, BAKit_Color_Yellow, BAKit_Color_Orange]  popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod, BAKit_Color_Yellow_pod, BAKit_Color_Orange_pod] ;
+    [UIAlertController ba_actionSheetShowInViewController:self title:title0 message:nil buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:buttonTitleColorArray popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
         
         if (popover)
         {
@@ -295,7 +305,9 @@ static NSString * const msg2 = @"请输入账号密码";
     /*! 设置关键字属性 */
     [attributedMessage ba_changeAttributeDict:dic range:range];
     
-    [UIAlertController ba_actionSheetAttributedShowInViewController:self attributedTitle:attributedTitle attributedMessage:attributedMessage buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:@[BAKit_Color_Red, BAKit_Color_Green, BAKit_Color_Yellow, BAKit_Color_Orange] popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod, BAKit_Color_Yellow_pod, BAKit_Color_Orange_pod];
+
+    [UIAlertController ba_actionSheetAttributedShowInViewController:self attributedTitle:attributedTitle attributedMessage:attributedMessage buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:buttonTitleColorArray popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
         if (popover)
         {
             // 在使用 UITableViewCell 的frame属性获取origin得到的坐标是不变的. 也就是说如果UITableView初始化完毕后,每个cell的坐标是固定的,x不变,y 随index递增的. 经过测试发现,任何一个cell拖拽或则滑动到UITableView的任意相对位置,cell的frame属性都没有改变. 那怎样获取UITableViewCell相对于UITableView的坐标?
@@ -327,7 +339,7 @@ static NSString * const msg2 = @"请输入账号密码";
         self.tableView.dataSource =  self;
         self.tableView.estimatedRowHeight = 44;
         self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.tableView.backgroundColor = BAKit_Color_gray11;
+        self.tableView.backgroundColor = BAKit_Color_Gray_11_pod;
         
         [self.view addSubview:self.tableView];
     }

@@ -19,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4738C431EFE3B0B00608E17 /* BAKit_ConfigurationDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BAKit_ConfigurationDefine.h; path = BAAlertController/BAKit_ConfigurationDefine.h; sourceTree = "<group>"; };
 		C4A0040C1EE4F74F00C503A4 /* BAAlertController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BAAlertController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A004101EE4F74F00C503A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4A004121EE4F74F00C503A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 				C4A004131EE4F74F00C503A4 /* AppDelegate.m */,
 				C4A004151EE4F74F00C503A4 /* ViewController.h */,
 				C4A004161EE4F74F00C503A4 /* ViewController.m */,
+				C4738C431EFE3B0B00608E17 /* BAKit_ConfigurationDefine.h */,
 				C4A004181EE4F74F00C503A4 /* Main.storyboard */,
 				C4A0041B1EE4F74F00C503A4 /* Assets.xcassets */,
 				C4A0041D1EE4F74F00C503A4 /* LaunchScreen.storyboard */,

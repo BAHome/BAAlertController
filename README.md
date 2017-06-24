@@ -47,35 +47,6 @@
 #import "NSObject+BARunTime.h"
 #import "NSMutableAttributedString+BAKit.h"
 
-#pragma mark - NotiCenter
-#define BAKit_NotiCenter [NSNotificationCenter defaultCenter]
-
-#pragma mark - 简单警告框
-/*! view 用 BAKit_ShowAlertWithMsg */
-#define BAKit_ShowAlertWithMsg(msg) [[[UIAlertView alloc] initWithTitle:@"温馨提示" message:(msg) delegate:nil cancelButtonTitle:@"确 定" otherButtonTitles:nil] show];
-/*! VC 用 BAKit_ShowAlertWithMsg */
-#define BAKit_ShowAlertWithMsg_ios8(msg) UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:msg preferredStyle:UIAlertControllerStyleAlert];\
-UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确 定" style:UIAlertActionStyleDefault handler:nil];\
-[alert addAction:sureAction];\
-[self presentViewController:alert animated:YES completion:nil];
-
-CG_INLINE UIColor *
-BAKit_Color_RGBA(u_char r,u_char g, u_char b, u_char a) {
-    return [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a];
-}
-
-#define BAKit_Color_Translucent    [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:0.5f]
-#define BAKit_Color_White          [UIColor whiteColor]
-#define BAKit_Color_Clear          [UIColor clearColor]
-#define BAKit_Color_Black          [UIColor blackColor]
-#define BAKit_Color_Red            [UIColor redColor]
-#define BAKit_Color_Green          [UIColor greenColor]
-#define BAKit_Color_Yellow         [UIColor yellowColor]
-#define BAKit_Color_Orange         [UIColor orangeColor]
-
-#define BAKit_Color_gray11         BAKit_Color_RGBA(248, 248, 248, 1.0)
-
-
 /*!
  *********************************************************************************
  ************************************ 更新说明 ************************************
@@ -86,6 +57,11 @@ BAKit_Color_RGBA(u_char r,u_char g, u_char b, u_char a) {
  
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAAlertController
+ 
+ 最新更新时间：2017-06-24 【倒叙】
+ 最新Version：【Version：1.0.1】
+ 更新内容：
+ 1.0.0.1、更换方法名，原：ba_alert2ShowInViewController 替换为：ba_alertTextFieldShowInViewController
  
  最新更新时间：2017-06-05 【倒叙】
  最新Version：【Version：1.0.0】
@@ -163,7 +139,7 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
  @param block block
  @return 普通 带 textField 的 UIAlertController-Alert
  */
-+ (nonnull instancetype)ba_alert2ShowInViewController:(nonnull UIViewController *)viewController
++ (nonnull instancetype)ba_alertTextFieldShowInViewController:(nonnull UIViewController *)viewController
                                                 title:(nullable NSString *)title
                                               message:(nullable NSString *)message
                                      buttonTitleArray:(nullable NSArray *)buttonTitleArray
@@ -380,11 +356,13 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
 ```
 - (void)alertController1
 {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
     [UIAlertController ba_alertShowInViewController:self
                                               title:title0
                                             message:msg0
                                    buttonTitleArray:@[@"取 消", @"确 定"]
-                              buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red]
+                              buttonTitleColorArray:buttonTitleColorArray
                                               block:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
       NSString *msg = [NSString stringWithFormat:@"你点击了第 %ld 个按钮！", (long)buttonIndex];
       BAKit_ShowAlertWithMsg_ios8(msg);
@@ -393,11 +371,13 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
 
 - (void)alertController2
 {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
     [UIAlertController ba_alertShowInViewController:self
                                               title:title0
                                             message:msg0
                                    buttonTitleArray:@[@"取 消", @"确 定", @"确 定1", @"确 定2"]
-                              buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red]
+                              buttonTitleColorArray:buttonTitleColorArray
                                               block:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                                                   NSString *msg = [NSString stringWithFormat:@"你点击了第 %ld 个按钮！", (long)buttonIndex];
                                                   BAKit_ShowAlertWithMsg_ios8(msg);
@@ -409,7 +389,9 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
 {
     // AlertController 的 textField placeholder 数组，根据这个添加 textField
     NSArray *textFieldPlaceholderArray = @[@"用户名/手机号/邮箱", @"密码"];
-    [UIAlertController ba_alert2ShowInViewController:self title:msg2 message:nil  buttonTitleArray:@[@"取 消", @"确 定"] buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red] buttonEnabledNoWithTitleArray:@[@"确 定"] textFieldPlaceholderArray:textFieldPlaceholderArray textFieldConfigurationActionBlock:^(UITextField * _Nullable textField, NSInteger index) {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
+    [UIAlertController ba_alertTextFieldShowInViewController:self title:msg2 message:nil  buttonTitleArray:@[@"取 消", @"确 定"] buttonTitleColorArray:buttonTitleColorArray buttonEnabledNoWithTitleArray:@[@"确 定"] textFieldPlaceholderArray:textFieldPlaceholderArray textFieldConfigurationActionBlock:^(UITextField * _Nullable textField, NSInteger index) {
         // 添加通知，监听 textField 输入的文字变化
         [BAKit_NotiCenter addObserver:self selector:@selector(handleAlertTextFieldDidChangeAction:) name:UITextFieldTextDidChangeNotification object:textField];
 
@@ -447,7 +429,7 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
 
 - (void)alertController4
 {
-    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:@"博爱温馨提示：" attributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
+    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title0 attributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
     
     NSString *result = @"当前用户未 登录 ，是否 登录 ？";
     NSString *keyWord = @"登录";
@@ -463,11 +445,13 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
     /*! 设置关键字属性 */
     [attributedMessage ba_changeAttributeDict:dic range:range];
     
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod] ;
+
     [UIAlertController ba_alertAttributedShowInViewController:self
                                               attributedTitle:attributedTitle
                                             attributedMessage:attributedMessage
                                              buttonTitleArray:@[@"取 消", @"确 定"]
-                                        buttonTitleColorArray:@[BAKit_Color_Green, BAKit_Color_Red]
+                                        buttonTitleColorArray:buttonTitleColorArray
                                                         block:^(UIAlertController * _Nonnull alertController, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                                                             
                                                             NSString *msg = [NSString stringWithFormat:@"你点击了第 %ld 个按钮！", (long)buttonIndex];
@@ -477,7 +461,8 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
 
 - (void)alertController5
 {
-    [UIAlertController ba_actionSheetShowInViewController:self title:title0 message:nil buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:@[BAKit_Color_Red, BAKit_Color_Green, BAKit_Color_Yellow, BAKit_Color_Orange]  popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod, BAKit_Color_Yellow_pod, BAKit_Color_Orange_pod] ;
+    [UIAlertController ba_actionSheetShowInViewController:self title:title0 message:nil buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:buttonTitleColorArray popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
         
         if (popover)
         {
@@ -501,7 +486,7 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
 
 - (void)alertController6
 {
-    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:@"博爱温馨提示：" attributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
+    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title0 attributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
     
     NSString *result = @"当前用户未 登录 ，是否 登录 ？";
     NSString *keyWord = @"登录";
@@ -517,7 +502,9 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
     /*! 设置关键字属性 */
     [attributedMessage ba_changeAttributeDict:dic range:range];
     
-    [UIAlertController ba_actionSheetAttributedShowInViewController:self attributedTitle:attributedTitle attributedMessage:attributedMessage buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:@[BAKit_Color_Red, BAKit_Color_Green, BAKit_Color_Yellow, BAKit_Color_Orange] popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
+    NSArray *buttonTitleColorArray = @[BAKit_Color_Red_pod, BAKit_Color_Green_pod, BAKit_Color_Yellow_pod, BAKit_Color_Orange_pod];
+
+    [UIAlertController ba_actionSheetAttributedShowInViewController:self attributedTitle:attributedTitle attributedMessage:attributedMessage buttonTitleArray:@[@"safari打开", @"复制链接", @"分享", @"刷新"] buttonTitleColorArray:buttonTitleColorArray popoverPresentationControllerBlock:^(UIPopoverPresentationController * _Nonnull popover) {
         if (popover)
         {
             // 在使用 UITableViewCell 的frame属性获取origin得到的坐标是不变的. 也就是说如果UITableView初始化完毕后,每个cell的坐标是固定的,x不变,y 随index递增的. 经过测试发现,任何一个cell拖拽或则滑动到UITableView的任意相对位置,cell的frame属性都没有改变. 那怎样获取UITableViewCell相对于UITableView的坐标?
@@ -545,6 +532,11 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
  
+ 最新更新时间：2017-06-24 【倒叙】<br>
+ 最新Version：【Version：1.0.1】<br>
+ 更新内容：<br>
+ 1.0.0.1、更换方法名，原：ba_alert2ShowInViewController 替换为：ba_alertTextFieldShowInViewController<br>
+ 
  最新更新时间：2017-06-05 【倒叙】<br>
  最新Version：【Version：1.0.0】<br>
  更新内容：<br>
@@ -560,7 +552,9 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
 ## 6、bug 反馈 和 联系方式
 > 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 BAHome 团队，我们必定会认真对待每一个问题！ <br>
 
-> 2、联系方式 <br> 
+> 2、以后提需求和 bug 的同学，记得把 git 或者博客链接给我们，我直接超链到你们那里！希望大家积极参与测试！<br> 
+
+> 3、联系方式 <br> 
 QQ群：479663605  【注意：此群为 2 元 付费群，介意的小伙伴儿勿扰！】<br> 
 博爱QQ：137361770 <br> 
 博爱微博：[![](https://img.shields.io/badge/微博-博爱1616-red.svg)](http://weibo.com/538298123) <br> 
