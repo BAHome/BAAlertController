@@ -24,7 +24,7 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAAlertController
  
- 最新更新时间：2017-06-24 【倒叙】<br>
+ 最新更新时间：2017-07-21 【倒叙】<br>
  最新Version：【Version：1.0.2】<br>
  更新内容：<br>
  1.0.2.1、优化内部细节命名，不影响外部使用<br>

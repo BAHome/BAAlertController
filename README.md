@@ -58,7 +58,7 @@
  项目源码地址：
  OC 版 ：https://github.com/BAHome/BAAlertController
  
- 最新更新时间：2017-06-24 【倒叙】<br>
+ 最新更新时间：2017-07-21 【倒叙】<br>
  最新Version：【Version：1.0.2】<br>
  更新内容：<br>
  1.0.2.1、优化内部细节命名，不影响外部使用<br>
@@ -537,7 +537,7 @@ typedef void (^BAKit_AlertControllerTextFieldConfigurationActionBlock)(UITextFie
  欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
  如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
  
- 最新更新时间：2017-06-24 【倒叙】<br>
+ 最新更新时间：2017-07-21 【倒叙】<br>
  最新Version：【Version：1.0.2】<br>
  更新内容：<br>
  1.0.2.1、优化内部细节命名，不影响外部使用<br>
